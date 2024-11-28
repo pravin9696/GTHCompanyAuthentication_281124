@@ -1,0 +1,31 @@
+﻿@model GTHCompanyAuthentication_281124.Models.validation_Data.loginClass
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+@using (Html.BeginForm("Login","GTH",FormMethod.Post))
+{
+    <h3 style="color:red">@Html.ValidationSummary()</h3>
+    <table>
+        <tr>
+            <td>@Html.LabelFor(x => x.userid)</td>
+            <td>@Html.TextBoxFor(x => x.userid)</td>
+            <td>@Html.ValidationMessageFor(x => x.userid)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.password)</td>
+            <td>@Html.PasswordFor(x => x.password)</td>
+            <td>@Html.ValidationMessageFor(x => x.password)</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            @Html.CheckBoxFor(x=>x.save) Remember me...</td>
+        </tr>
+        <tr>
+            <td colspan="3"><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+}
+
