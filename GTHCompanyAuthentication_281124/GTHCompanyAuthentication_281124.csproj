@@ -20,8 +20,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44334</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -150,7 +150,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GTHEmployeeModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Role Provider\GTHRoleProvider.cs" />
     <Compile Include="Models\tblLogin.cs">
+      <DependentUpon>GTHEmployeeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblRole.cs">
       <DependentUpon>GTHEmployeeModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\validation Data\loginClass.cs" />
@@ -199,6 +203,7 @@
     <Content Include="Models\GTHEmployeeModel.edmx.diagram">
       <DependentUpon>GTHEmployeeModel.edmx</DependentUpon>
     </Content>
+    <Content Include="PPT\Authentication and Authorization.pptx" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

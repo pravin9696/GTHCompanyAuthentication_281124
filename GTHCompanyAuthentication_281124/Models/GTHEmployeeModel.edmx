@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GTHCompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GTHCompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblLogin">
           <Key>
             <PropertyRef Name="id" />
@@ -13,11 +13,35 @@
           <Property Name="userid" Type="nvarchar" MaxLength="50" />
           <Property Name="password" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tblRoles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lgID" Type="int" />
+          <Property Name="role" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tblRoles_tblLogin">
+          <End Role="tblLogin" Type="Self.tblLogin" Multiplicity="0..1" />
+          <End Role="tblRoles" Type="Self.tblRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLogin">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblRoles">
+              <PropertyRef Name="lgID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="GTHCompanyModelStoreContainer">
           <EntitySet Name="tblLogin" EntityType="Self.tblLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRoles" EntityType="Self.tblRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblRoles_tblLogin" Association="Self.FK_tblRoles_tblLogin">
+            <End Role="tblLogin" EntitySet="tblLogin" />
+            <End Role="tblRoles" EntitySet="tblRoles" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GTHCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -28,10 +52,37 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblRoles" Relationship="GTHCompanyModel.FK_tblRoles_tblLogin" FromRole="tblLogin" ToRole="tblRole" />
         </EntityType>
         <EntityContainer Name="GTHCompanyEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblLogins" EntityType="Self.tblLogin" />
+          <EntitySet Name="tblRoles" EntityType="GTHCompanyModel.tblRole" />
+          <AssociationSet Name="FK_tblRoles_tblLogin" Association="GTHCompanyModel.FK_tblRoles_tblLogin">
+            <End Role="tblLogin" EntitySet="tblLogins" />
+            <End Role="tblRole" EntitySet="tblRoles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tblRole">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lgID" Type="Int32" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblLogin" Relationship="GTHCompanyModel.FK_tblRoles_tblLogin" FromRole="tblRole" ToRole="tblLogin" />
+        </EntityType>
+        <Association Name="FK_tblRoles_tblLogin">
+          <End Type="GTHCompanyModel.tblLogin" Role="tblLogin" Multiplicity="0..1" />
+          <End Type="GTHCompanyModel.tblRole" Role="tblRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLogin">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblRole">
+              <PropertyRef Name="lgID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -44,6 +95,15 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRoles">
+            <EntityTypeMapping TypeName="GTHCompanyModel.tblRole">
+              <MappingFragment StoreEntitySet="tblRoles">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="lgID" ColumnName="lgID" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

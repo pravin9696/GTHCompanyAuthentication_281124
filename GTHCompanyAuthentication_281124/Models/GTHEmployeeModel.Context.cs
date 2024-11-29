@@ -26,5 +26,6 @@ namespace GTHCompanyAuthentication_281124.Models
         }
     
         public virtual DbSet<tblLogin> tblLogins { get; set; }
+        public virtual DbSet<tblRole> tblRoles { get; set; }
     }
 }

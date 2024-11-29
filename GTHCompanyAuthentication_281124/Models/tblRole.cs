@@ -12,19 +12,12 @@ namespace GTHCompanyAuthentication_281124.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblLogin
+    public partial class tblRole
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblLogin()
-        {
-            this.tblRoles = new HashSet<tblRole>();
-        }
-    
         public int id { get; set; }
-        public string userid { get; set; }
-        public string password { get; set; }
+        public Nullable<int> lgID { get; set; }
+        public string role { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblRole> tblRoles { get; set; }
+        public virtual tblLogin tblLogin { get; set; }
     }
 }

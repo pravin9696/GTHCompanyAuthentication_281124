@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="32eda56c621c4a7e94134bec15112a7c" Name="Diagram1">
         <EntityTypeShape EntityType="GTHCompanyModel.tblLogin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GTHCompanyModel.tblRole" Width="1.5" PointX="4.75" PointY="1" />
+        <AssociationConnector Association="GTHCompanyModel.FK_tblRoles_tblLogin" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15,7 +15,7 @@ namespace GTHCompanyAuthentication_281124.Controllers
     {
         GTHCompanyEntities dbo = new GTHCompanyEntities();
         // GET: GTH
-        [Authorize]
+        [Authorize (Roles="employee,user")]
         public ActionResult showAllEmp()
         {
             return View();
